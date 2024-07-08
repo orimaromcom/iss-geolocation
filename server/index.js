@@ -1,7 +1,15 @@
 const express = require("express");
+const WebSocket = require("ws");
+const http = require("http");
 const locationRoutes = require("./routes/routes.js");
+const servicesManager = require("./services/services-manager.js");
+const port = 8080;
+const delay = 1000;
 
 const app = express();
+const server = http.createServer(app);
+
+const wss = new WebSocket.Server({ server });
 
 app.use(express.json());
 
@@ -13,9 +21,30 @@ app.get("/", async (req, res) => {
   });
 });
 
+wss.on("connection", (ws) => {
+  console.log("Client connected");
+
+  ws.send(
+    JSON.stringify({
+      message: "Welcome to WebSocket Server",
+    })
+  );
+
+  setInterval(async () => {
+    const issLocation = await servicesManager.getIssCountry();
+
+    ws.send(
+      JSON.stringify({
+        message: "ISS location update",
+        ...issLocation,
+      })
+    );
+  }, delay);
+});
+
 const startServer = async () => {
   try {
-    app.listen(8080, () => console.log("Server started on port 8080"));
+    server.listen(port, () => console.log(`Server started on ${port}`));
   } catch (error) {
     console.log(error);
   }

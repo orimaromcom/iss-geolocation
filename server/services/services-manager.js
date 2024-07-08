@@ -23,11 +23,20 @@ function getJsonData(filePath) {
   return geoJsonData;
 }
 
-function getCountryNames() {
-  const geoJsonData = getJsonData(filePath);
+function getCountryNames(req, res) {
+  try {
+    const geoJsonData = getJsonData(filePath);
 
-  if (geoJsonData) {
-    return extractCountryNames(geoJsonData);
+    if (geoJsonData) {
+      res
+        .status(200)
+        .json({ success: true, countries: extractCountryNames(geoJsonData) });
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Fetching countries from dataset failed, please try again",
+    });
   }
 }
 
@@ -37,14 +46,15 @@ function pointInPolygon(point, polygon) {
 
 function getPointFromIssPosition(issPosition) {
   const point = turf.point([
-    parseFloat(issPosition.longitude),
-    parseFloat(issPosition.latitude),
+    parseFloat(issPosition?.longitude),
+    parseFloat(issPosition?.latitude),
   ]);
 
   return point;
 }
 
 function findCountry(issPosition, geoJsonData) {
+  if (!issPosition) return "Unknown country";
   const point = getPointFromIssPosition(issPosition);
 
   for (const feature of geoJsonData.features) {
@@ -91,13 +101,19 @@ async function fetchIssLocation() {
   }
 }
 
+async function getIssCountry() {
+  const iss_position = await fetchIssLocation();
+
+  const geoJsonData = getJsonData(filePath);
+
+  const country = findCountry(iss_position, geoJsonData);
+
+  return { iss_position, country };
+}
+
 async function getIssLocation(req, res) {
   try {
-    const iss_position = await fetchIssLocation();
-
-    const geoJsonData = getJsonData(filePath);
-
-    const country = findCountry(iss_position, geoJsonData);
+    const { iss_position, country } = await getIssCountry();
 
     res.status(200).json({ success: true, position: { iss_position, country } });
   } catch (err) {
@@ -144,4 +160,5 @@ module.exports = {
   getCountryNames,
   getIssLocation,
   getIssLocationUtm,
+  getIssCountry,
 };
