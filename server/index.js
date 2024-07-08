@@ -1,11 +1,11 @@
-import express from "express";
-import locationRoutes from "./routes/locationRoutes.js";
+const express = require("express");
+const locationRoutes = require("./routes/routes.js");
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/api/location", locationRoutes);
+app.use("/api", locationRoutes);
 
 app.get("/", async (req, res) => {
   res.status(200).json({
