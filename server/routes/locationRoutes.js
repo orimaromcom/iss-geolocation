@@ -4,8 +4,6 @@ const router = express.Router();
 
 router.route("/").get(async (req, res) => {
   try {
-    const location = true;
-
     const response = await fetch("http://api.open-notify.org/iss-now.json", {
       method: "GET",
       headers: {
@@ -13,7 +11,7 @@ router.route("/").get(async (req, res) => {
       },
     });
 
-    console.log("getting ISS location");
+    console.log("fetching ISS location");
     res.status(200).json({ success: true, data: await response.json() });
   } catch (err) {
     res.status(500).json({
