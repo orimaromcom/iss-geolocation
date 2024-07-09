@@ -3,13 +3,14 @@ const WebSocket = require("ws");
 const http = require("http");
 const locationRoutes = require("./routes/routes.js");
 const servicesManager = require("./services/services-manager.js");
-const port = 8080;
-const delay = 10000;
+const API_SERVER_PORT = 8080;
+const WS_SERVER_PORT = 3000;
+const delay = 5000;
 
 const app = express();
 const server = http.createServer(app);
 
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ port: WS_SERVER_PORT });
 
 app.use(express.json());
 
@@ -44,7 +45,9 @@ wss.on("connection", (ws) => {
 
 const startServer = async () => {
   try {
-    server.listen(port, () => console.log(`Server started on ${port}`));
+    server.listen(API_SERVER_PORT, () =>
+      console.log(`Server started on ${API_SERVER_PORT}`)
+    );
   } catch (error) {
     console.log(error);
   }
