@@ -11,7 +11,7 @@ import { Icon, Style } from "ol/style.js";
 import "ol/ol.css";
 import { fromLonLat } from "ol/proj.js";
 // const SOCKET_URL = "wss://iss-geolocation.onrender.com";
-const SOCKET_URL = "ws://127.0.0.1:3000";
+const SOCKET_URL = "ws://127.0.0.1:8080";
 
 function MapComponent() {
   const { lastMessage } = useWebSocket(SOCKET_URL);
