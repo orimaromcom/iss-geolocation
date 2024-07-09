@@ -18,26 +18,21 @@ function extractCountryNames(geoJson) {
   return geoJson.features.map((feature) => feature.properties.name);
 }
 
-function getJsonData(filePath) {
+function getJsonData() {
   const geoJsonData = readGeoJsonFile(filePath);
   return geoJsonData;
 }
 
-function getCountryNames(req, res) {
-  try {
-    const geoJsonData = getJsonData(filePath);
+function getCountryNames() {
+  const geoJsonData = getJsonData();
 
-    if (geoJsonData) {
-      res
-        .status(200)
-        .json({ success: true, countries: extractCountryNames(geoJsonData) });
-    }
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "Fetching countries from dataset failed, please try again",
-    });
+  if (geoJsonData) {
+    const countryNames = extractCountryNames(geoJsonData);
+
+    return countryNames;
   }
+
+  return null;
 }
 
 function pointInPolygon(point, polygon) {
@@ -111,19 +106,6 @@ async function getIssCountry() {
   return { iss_position, country };
 }
 
-async function getIssLocation(req, res) {
-  try {
-    const { iss_position, country } = await getIssCountry();
-
-    res.status(200).json({ success: true, position: { iss_position, country } });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "Fetching ISS location failed, please try again",
-    });
-  }
-}
-
 function convertToUtm(latitude, longitude) {
   const { easting, northing, zoneNumber, zoneLetter } = utm.fromLatLon(
     latitude,
@@ -138,8 +120,8 @@ function convertToUtm(latitude, longitude) {
   };
 }
 
-async function getIssLocationUtm(req, res) {
-  try {
+async function calculateUtmPosition() {
+  {
     const iss_position = await fetchIssLocation();
 
     const utm_position = convertToUtm(
@@ -147,18 +129,14 @@ async function getIssLocationUtm(req, res) {
       parseFloat(iss_position.longitude)
     );
 
-    res.status(200).json({ success: true, position: { utm_position } });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "Fetching ISS location failed, please try again",
-    });
+    return { iss_position, utm_position };
   }
 }
 
 module.exports = {
   getCountryNames,
-  getIssLocation,
-  getIssLocationUtm,
+  getJsonData,
+  extractCountryNames,
+  calculateUtmPosition,
   getIssCountry,
 };
