@@ -10,6 +10,7 @@ import { Icon, Style } from "ol/style.js";
 
 import "ol/ol.css";
 import { fromLonLat } from "ol/proj.js";
+import satelliteMarker from "../assets/satellite.png";
 const mode = import.meta.env.MODE;
 
 const SOCKET_URL =
@@ -35,7 +36,7 @@ function MapComponent() {
         anchor: [0.5, 46],
         anchorXUnits: "fraction",
         anchorYUnits: "pixels",
-        src: "src//assets/satellite.png",
+        src: satelliteMarker,
       }),
     });
 
