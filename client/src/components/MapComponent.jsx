@@ -81,13 +81,17 @@ function MapComponent() {
   }, [lastMessage]);
 
   return (
-    <>
-      Welcome to ISS Tracker
-      <div style={{ height: "400px", width: "400px" }} id="map" />
-      <>Currently above: {messageHistory?.country}</>
-      <>Longitude: {messageHistory?.iss_position?.longitude}°</>
-      <>Latitude: {messageHistory?.iss_position?.latitude}°</>
-    </>
+    <div className="text-white font-bold">
+      <div className="mb-4 text-4xl ">Welcome to Ori's ISS Tracker</div>
+      <div style={{ height: "400px", width: "600px" }} id="map" />
+      <div className="flex flex-col mt-4 text-lg font-bold">
+        <div className="flex">The ISS is currently above: {messageHistory?.country}</div>
+        <div className="flex flex-col justify-start text-left">
+          <div>Longitude: {messageHistory?.iss_position?.longitude}°</div>
+          <div>Latitude: {messageHistory?.iss_position?.latitude}°</div>
+        </div>
+      </div>
+    </div>
   );
 }
 
