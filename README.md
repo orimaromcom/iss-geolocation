@@ -11,6 +11,7 @@ Welcome to my ISS Tracker API project! This server provides information about th
   - [GET /api/v1/iss-location](#get-apiv1iss-location)
   - [GET /api/v1/iss-location-utm](#get-apiv1iss-location-utm)
 - [Live Demo](#live-demo)
+- [Installation](#installation)
 
 
 ## Overview
@@ -55,6 +56,12 @@ The ISS Tracker API provides three endpoints:
 **PC Compatible Version**:
 
 https://ori-iss-location-tracker.netlify.app
+
+## Installation
+
+### Server
+
+1. Clone the repository:
 
 
 
