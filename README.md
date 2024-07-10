@@ -99,7 +99,7 @@ Ensure both server and client are running simultaneously for full functionality.
 
 
 
-© Ori. All Rights Reserved.
+© Ori Marom. All Rights Reserved.
 
 
 
