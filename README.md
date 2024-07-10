@@ -58,6 +58,8 @@ The ISS Tracker API provides three endpoints:
 
 https://ori-iss-location-tracker.netlify.app
 
+![Example Image](client/public/iss_img.gif)
+
 ## Installation
 
 ### Server
