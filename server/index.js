@@ -29,7 +29,7 @@ wss.on("connection", (ws) => {
       message: "Welcome to WebSocket Server",
     })
   );
-  let intervalId = setInterval(async () => {
+  setInterval(async () => {
     const issLocation = await servicesManager.getIssCountry();
 
     ws.send(
@@ -42,7 +42,6 @@ wss.on("connection", (ws) => {
 
   ws.onclose = () => {
     console.log("WebSocket connection closed");
-    clearInterval(intervalId);
   };
 });
 
