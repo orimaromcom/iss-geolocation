@@ -13,7 +13,7 @@ const wss = new WebSocket.Server({ server });
 
 app.use(express.json());
 
-app.use("/api", locationRoutes);
+app.use("/api/v1", locationRoutes);
 
 app.get("/", async (req, res) => {
   res.status(200).json({
