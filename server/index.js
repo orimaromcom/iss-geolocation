@@ -4,7 +4,7 @@ const http = require("http");
 const locationRoutes = require("./routes/routes.js");
 const servicesManager = require("./services/services-manager.js");
 const PORT = 8080;
-const DELAY = 5000;
+const DELAY = 10000;
 
 const app = express();
 const server = http.createServer(app);
