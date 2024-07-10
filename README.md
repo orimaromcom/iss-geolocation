@@ -7,11 +7,12 @@ Welcome to my ISS Tracker API project! This server provides information about th
 - [Overview](#overview)
 - [Features](#features)
 - [Endpoints](#endpoints)
-  - [GET /api/v1/countries](#get-apiv1countries)
-  - [GET /api/v1/iss-location](#get-apiv1iss-location)
-  - [GET /api/v1/iss-location-utm](#get-apiv1iss-location-utm)
+  - [GET /api/v1/countries](#get-ap-iv1countries)
+  - [GET /api/v1/iss-location](#get-api-v1-iss-location)
+  - [GET /api/v1/iss-location-utm](#get-api-v1-iss-location-utm)
 - [Live Demo](#live-demo)
 - [Installation](#installation)
+* [Usage](#usage)
 
 
 ## Overview
@@ -63,6 +64,43 @@ https://ori-iss-location-tracker.netlify.app
 
 1. Clone the repository:
 
+    https://github.com/orimaromcom/iss-geolocation.git
+
+    ```cd /server```
+
+2. Install dependencies:
+
+    ```npm install```
+
+3. Start the server:
+
+   ```npm run start```
+
+### Client
+
+1. Navigate to the client directory:
+
+    ```cd /client```
+
+2. Install dependencies:
+
+    ```npm install```
+
+3. Start the client:
+
+    ```npm run dev```
+
+## Usage
+
+After starting both the server and client, you can access the application through your web browser. Typically, the server runs on `http://localhost:3000` and the client on `http://localhost:5173`. 
+
+Ensure both server and client are running simultaneously for full functionality.
+
+
+
+
+
+   
 
 
 
